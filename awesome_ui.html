@@ -12,39 +12,79 @@
     <nav class="navbar navbar-dark bg-dark d-flex justify-content-center mb-5">
         <h1 class="text-light">RoboCar Project</h1>
     </nav>
+    <div id="alert_1" class="d-none" role="alert"></div>
+    <div id="alert_2" class="alert alert-success d-none" role="alert">RoboCar is being controlled by <strong>Remote control</strong>.</div>
     <section class="container mt-4">
         <div class="row justify-content-around">
             <div class="card" style="width: 18rem;">
                 <img src="./motor.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Engine test</h5>
+                    <h5 class="card-title">Engine Test</h5>
                     <p class="card-text">Run or stop the test to check the state of the RoboCar's engine.</p>
-                    <button class="btn btn-warning">Run test</button>
-                    <button class="btn btn-secondary">Stop</button>
+                    <button id="run_test" class="btn btn-warning">Run test</button>
+                    <button id="stop_test" class="btn btn-secondary" disabled>Stop</button>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <img src="./car.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Internal Control</h5>
+                    <h5 class="card-title">RoboCar's Mode</h5>
                     <p class="card-text">Chose the RoboCar's mode.</p>
                     <div class="container">
-                        <button class="row btn btn-primary m-1">Autonomous sumo battle</button>
-                        <button class="row btn btn-primary m-1">Line-Follow mode</button>
-                        <button class="row btn btn-primary m-1">Soccer mode</button>
+                        <button id="sumo_mode" class="row btn btn-primary m-1">Autonomous sumo battle</button>
+                        <button id="line_mode" class="row btn btn-primary m-1">Line-Follow mode</button>
+                        <button id="soccer_mode" class="row btn btn-primary m-1">Soccer mode</button>
                     </div>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <img src="./remote.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">External Control</h5>
-                    <p class="card-text">Run or stop the test to check the state of the RoboCar's engine.</p>
-                    <button class="btn btn-success m-1">Remote Control</button>
-                    <button class="btn btn-success m-1">Internal Control</button>
+                    <h5 class="card-title">Control Status</h5>
+                    <p class="card-text">Select the type of control. Remote control is default.</p>
+                    <button id="remote_control" class="btn btn-success m-1">Remote Control</button>
+                    <button id="internal_control" class="btn btn-success m-1">Internal Control</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        $('document').ready(function () {
+            $('#run_test').click(function () {
+                $('#alert_1').removeClass().addClass('alert alert-warning').html('Engine test in progress.');
+                $('#alert_2').addClass('d-none');
+                $('#stop_test').removeAttr('disabled');
+            });
+
+            $('#stop_test').click(function () {
+                $('#alert_1').addClass('d-none');
+                $(this).attr("disabled", "disabled");
+            });
+
+            $('#sumo_mode').click(function () {
+                $('#alert_1').removeClass().addClass('alert alert-primary').html("<strong> Autonomous sumo battle </strong> mode is on.");
+                $('#alert_2').removeClass('d-none');
+            });
+
+            $('#line_mode').click(function () {
+                $('#alert_1').removeClass().addClass('alert alert-primary').html("<strong> Line-follow </strong> mode is on.");
+                $('#alert_2').removeClass('d-none');
+            });
+
+            $('#soccer_mode').click(function () {
+                $('#alert_1').removeClass().addClass('alert alert-primary').html("<strong> Soccer </strong> mode is on.");
+                $('#alert_2').removeClass('d-none');
+            });
+
+            $('#remote_control').click(function () {
+                $('#alert_2').removeClass('d-none').html("RoboCar is being controlled by <strong>Remote control</strong>.");
+            });
+
+            $('#internal_control').click(function () {
+                $('#alert_2').removeClass('d-none').html("RoboCar is being controlled by <strong>Internal control</strong>.");
+            });
+        });
+    </script>
 </body>
 </html>
